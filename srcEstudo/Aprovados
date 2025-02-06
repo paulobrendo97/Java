@@ -1,0 +1,48 @@
+package application;
+
+import java.util.Locale;
+import java.util.Scanner;
+
+public class Program {
+
+	public static void main(String[] args) {
+		Locale.setDefault(Locale.US);
+		Scanner sc = new Scanner(System.in);
+		
+		System.out.println("Quantas pessoas voce vai digitar? ");
+		int n = sc.nextInt();
+		
+		String[] nome = new String[n];
+		
+		double[] nota1 = new double[n];
+		double[] nota2 = new double[n];
+		
+		
+		
+		for(int i=0; i < n ; i++) {
+			System.out.printf("Digite os dados %dº pessoa \n", i +1);
+			sc.nextLine();
+			System.out.print("nome ");
+			nome[i] = sc.nextLine();
+			System.out.print("Nota do primeiro semestre ");
+			nota1[i] = sc.nextDouble();
+			System.out.print("Nota do segundo semestre  ");
+			nota2[i] = sc.nextDouble();
+		}
+		System.out.printf("Alunos aprovados: \n");
+		for(int i=0; i < n ; i++) {
+			double media =( nota1[i] + nota2[i]) /2;
+			if (media> 6.0 ) {
+				
+				System.out.printf("%s\n", nome[i]);
+			}
+			
+		}
+		
+		
+		
+		
+		sc.close();
+	}
+
+}
