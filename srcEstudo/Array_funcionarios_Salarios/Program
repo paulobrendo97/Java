@@ -1,0 +1,71 @@
+package application;
+
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Locale;
+import java.util.Scanner;
+import entities.Funcionarios;
+
+public class Program {
+
+	public static void main(String[] args) {
+		Locale.setDefault(Locale.US);
+		Scanner sc = new Scanner(System.in);
+		List<Funcionarios> list = new ArrayList<>();
+		
+		System.out.println("Quantos funcionarios deseja registrar? ");
+		int n = sc.nextInt();
+		
+		for (int i = 0 ; i < n ; i++) {
+			System.out.printf("Funcionario #%d\n",i+1);
+			
+			System.out.print("Id: ");
+			int idfuncionario = sc.nextInt();
+			while (hasId(list, idfuncionario)) {
+				System.out.println("Id ja prenchido, tente novamente");
+				idfuncionario = sc.nextInt();
+			}
+			sc.nextLine();
+			
+			System.out.print("Nome: ");
+			String nomefuncionario = sc.nextLine();
+			
+			System.out.print("Salario: ");
+			double salariofuncionario = sc.nextDouble();
+			
+			System.out.println();
+			list.add(new Funcionarios(idfuncionario, nomefuncionario, salariofuncionario));
+			
+		}
+		
+		System.out.println("___________________________________________");
+		System.out.println("Digite o id do funcionario que deseja aumentar o salario");
+		int idsalario = sc.nextInt();
+		Funcionarios fun = list.stream().filter(x -> x.getId() == idsalario).findFirst().orElse(null);
+		if (fun == null) {
+			System.out.println("Esse id nao existe");
+		}else {
+			System.out.println("Digite quantos % deseja aumentar do salario");
+			double porcentagem = sc.nextDouble();
+			fun.aumentarsalario(porcentagem);
+		}
+		
+		System.out.println("___________________________________________");
+		for (Funcionarios obj : list) {
+			if (obj != null) {
+				System.out.println(obj);
+			}
+			
+		}
+		
+		sc.close();
+	
+	}
+
+	public static boolean hasId(List<Funcionarios> list, int idsalario) {
+		Funcionarios fun = list.stream().filter(x -> x.getId() == idsalario).findFirst().orElse(null);
+			return fun != null; // verdadeiro = o id ja existe
+		}
+			
+}
+
